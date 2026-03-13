@@ -1,66 +1,492 @@
-ry<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Focus College</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; color: #333; }
+    :root {
+      --red: #c0392b;
+      --red-dark: #96281b;
+      --red-light: #e74c3c;
+      --navy: #1c2340;
+      --navy-light: #253060;
+      --charcoal: #2c3e50;
+      --gold: #f0c040;
+      --white: #ffffff;
+      --off-white: #f8f6f2;
+      --light-gray: #ececec;
+      --text-muted: #7f8c9a;
+    }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--charcoal);
+      background: var(--white);
+    }
+
+    /* ── NAV ── */
     nav {
-      background: #1a3a6b;
-      padding: 1rem 2rem;
+      background: var(--navy);
+      padding: 0 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 80px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 3px solid var(--red);
     }
-    nav .logo { color: white; font-size: 1.3rem; font-weight: bold; }
-    nav a { color: #ccc; text-decoration: none; margin-left: 1.5rem; font-size: 0.95rem; }
-    nav a:hover { color: white; }
 
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .nav-logo img {
+      height: 58px;
+      width: auto;
+    }
+
+    .nav-links { display: flex; gap: 0.25rem; }
+
+    .nav-links a {
+      color: #b0bec5;
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.5rem 0.9rem;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--white);
+      background: rgba(192, 57, 43, 0.25);
+    }
+
+    /* ── HERO ── */
     .hero {
-      background: #1a3a6b;
-      color: white;
-      text-align: center;
-      padding: 80px 20px;
+      background: var(--navy);
+      color: var(--white);
+      padding: 0;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
     }
-    .hero h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
-    .hero p { font-size: 1.2rem; opacity: 0.85; }
 
-    .cards {
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 50%, rgba(192,57,43,0.18) 0%, transparent 65%),
+        radial-gradient(ellipse at 10% 80%, rgba(192,57,43,0.10) 0%, transparent 50%);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: -60px;
+      top: 0;
+      width: 420px;
+      height: 100%;
+      background: rgba(192,57,43,0.07);
+      transform: skewX(-8deg);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 4rem 2.5rem;
+      gap: 3rem;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-badge {
+      display: inline-block;
+      background: var(--red);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 2px;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      color: var(--white);
+    }
+
+    .hero h1 span { color: var(--red-light); }
+
+    .hero p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #b0bec5;
+      max-width: 480px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+      padding: 0.8rem 2rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-1px); }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.3);
+      color: var(--white);
+      padding: 0.78rem 2rem;
+      border-radius: 4px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
+
+    .hero-logo-large {
+      flex-shrink: 0;
+      opacity: 0.18;
+    }
+    .hero-logo-large img {
+      width: 280px;
+      height: auto;
+      filter: brightness(10);
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--red);
+      color: var(--white);
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .stat {
+      flex: 1;
+      max-width: 220px;
+      text-align: center;
+      padding: 1.4rem 1rem;
+      border-right: 1px solid rgba(255,255,255,0.2);
+    }
+    .stat:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* ── SECTION TITLES ── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      color: var(--red);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .section-header .underline {
+      width: 50px;
+      height: 3px;
+      background: var(--red);
+      margin: 0.8rem auto 0;
+      border-radius: 2px;
+    }
+
+    /* ── CARDS SECTION ── */
+    .cards-section {
+      background: var(--off-white);
+      padding: 5rem 2rem;
+    }
+
+    .cards-grid {
       display: flex;
       flex-wrap: wrap;
       gap: 1.5rem;
-      padding: 3rem 2rem;
       justify-content: center;
       max-width: 1100px;
       margin: 0 auto;
     }
-    .card {
-      background: #f5f7fa;
-      border-radius: 10px;
-      padding: 1.5rem;
-      width: 280px;
-      border-top: 4px solid #1a3a6b;
-    }
-    .card h3 { margin-bottom: 0.5rem; color: #1a3a6b; }
-    .card p { font-size: 0.9rem; line-height: 1.6; color: #555; }
 
-    footer {
-      background: #111;
-      color: #aaa;
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 0.85rem;
+    .card {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 2rem 1.8rem;
+      width: 300px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid var(--light-gray);
     }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--red);
+    }
+
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(28,35,64,0.12); }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(192,57,43,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.2rem;
+      font-size: 1.4rem;
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 0.7rem;
+    }
+
+    .card p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 1.2rem;
+      color: var(--red);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.03em;
+    }
+    .card-link:hover { text-decoration: underline; }
+
+    /* ── MISSION STRIP ── */
+    .mission {
+      background: var(--navy);
+      color: var(--white);
+      padding: 4.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mission::before {
+      content: '"';
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: 20rem;
+      color: rgba(192,57,43,0.08);
+      top: -4rem;
+      left: 2rem;
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .mission blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-style: italic;
+      max-width: 700px;
+      margin: 0 auto 1rem;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+    }
+
+    .mission cite {
+      font-size: 0.85rem;
+      color: var(--red-light);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* ── ANNOUNCEMENTS ── */
+    .announcements-section {
+      padding: 5rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .announcements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .announcement {
+      border-left: 4px solid var(--red);
+      padding: 1.2rem 1.5rem;
+      background: var(--off-white);
+      border-radius: 0 6px 6px 0;
+    }
+
+    .announcement-date {
+      font-size: 0.75rem;
+      color: var(--red);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.4rem;
+    }
+
+    .announcement h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .announcement p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111827;
+      color: #9ca3af;
+      padding: 2.5rem 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .footer-logo img { height: 44px; width: auto; filter: brightness(0) invert(1); opacity: 0.6; }
+
+    .footer-motto {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      color: var(--red-light);
+      font-size: 0.9rem;
+    }
+
+    .footer-contact { font-size: 0.85rem; line-height: 1.8; text-align: right; }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 1.5rem auto 0;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.78rem;
+      text-align: center;
+      color: #4b5563;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.2rem; height: 70px; }
+      .nav-links a { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
+      .hero-logo-large { display: none; }
+      .hero-inner { padding: 3rem 1.5rem; }
+      .stats-bar { flex-wrap: wrap; }
+      .stat { min-width: 140px; }
+      .footer-contact { text-align: left; }
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge  { animation: fadeUp 0.5s ease both; }
+    .hero h1     { animation: fadeUp 0.5s 0.1s ease both; }
+    .hero p      { animation: fadeUp 0.5s 0.2s ease both; }
+    .hero-cta    { animation: fadeUp 0.5s 0.3s ease both; }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
   <nav>
-    <span class="logo">Focus College</span>
-    <div>
+    <div class="nav-logo">
+      <img src="logo.png" alt="Focus College Logo">
+    </div>
+    <div class="nav-links">
       <a href="#">Home</a>
       <a href="#">About</a>
       <a href="#">Academics</a>
@@ -70,28 +496,130 @@ ry<!DOCTYPE html>
     </div>
   </nav>
 
-  <div class="hero">
-    <h1>Welcome to Focus College</h1>
-    <p>Every Student Matters!</p>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-text">
+        <span class="hero-badge">Welcome to Focus College</span>
+        <h1>Where Every<br><span>Student Matters</span></h1>
+        <p>Empowering young minds through excellence, discipline, and a commitment to lifelong learning in Chitungwiza.</p>
+        <div class="hero-cta">
+          <a href="#" class="btn-primary">Explore Programs</a>
+          <a href="#" class="btn-outline">Contact Us</a>
+        </div>
+      </div>
+      <div class="hero-logo-large">
+        <img src="logo.png" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-number">500+</span>
+      <span class="stat-label">Students</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">40+</span>
+      <span class="stat-label">Qualified Staff</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">15+</span>
+      <span class="stat-label">Programs</span>
+    </div>
+    <div class="stat">
+      <span class="stat-number">95%</span>
+      <span class="stat-label">Pass Rate</span>
+    </div>
   </div>
 
-  <div class="cards">
-    <div class="card">
-      <h3>Academics</h3>
-      <p>Explore our wide range of courses, AP programs, and academic resources.</p>
+  <!-- CARDS -->
+  <section class="cards-section">
+    <div class="section-header">
+      <span class="section-label">What we offer</span>
+      <h2>Life at Focus College</h2>
+      <div class="underline"></div>
     </div>
-    <div class="card">
-      <h3>Upcoming Events</h3>
-      <p>Stay up to date with school events, sports, and important dates.</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <h3>Academics</h3>
+        <p>Explore our wide range of courses, advanced programs, and academic resources designed for student success.</p>
+        <a href="#" class="card-link">View Programs →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <h3>Upcoming Events</h3>
+        <p>Stay up to date with school events, sports days, prize givings, and all important dates on the calendar.</p>
+        <a href="#" class="card-link">See Calendar →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">👩‍🏫</div>
+        <h3>Meet Our Staff</h3>
+        <p>Get to know our dedicated and qualified teachers and administrative team committed to your growth.</p>
+        <a href="#" class="card-link">View Directory →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏆</div>
+        <h3>Student Life</h3>
+        <p>From clubs and sports to leadership programs — there's something for every student to thrive beyond the classroom.</p>
+        <a href="#" class="card-link">Explore →</a>
+      </div>
     </div>
-    <div class="card">
-      <h3>Meet Our Staff</h3>
-      <p>Get to know our dedicated teachers and administrative team.</p>
-    </div>
-  </div>
+  </section>
 
+  <!-- MISSION QUOTE -->
+  <section class="mission">
+    <blockquote>"Every student has the potential to achieve greatness — our job is to help them find it."</blockquote>
+    <cite>Focus College · Every Student Matters</cite>
+  </section>
+
+  <!-- ANNOUNCEMENTS -->
+  <section class="announcements-section">
+    <div class="section-header">
+      <span class="section-label">Latest</span>
+      <h2>News &amp; Announcements</h2>
+      <div class="underline"></div>
+    </div>
+    <div class="announcements-grid">
+      <div class="announcement">
+        <div class="announcement-date">March 2026</div>
+        <h4>Term 1 Examinations</h4>
+        <p>End of term exams begin March 20th. Students are reminded to collect their timetables from administration.</p>
+      </div>
+      <div class="announcement">
+        <div class="announcement-date">March 2026</div>
+        <h4>Sports Day 2026</h4>
+        <p>Annual sports day is scheduled for April 5th. All students are encouraged to participate and show school spirit.</p>
+      </div>
+      <div class="announcement">
+        <div class="announcement-date">March 2026</div>
+        <h4>Parent-Teacher Meetings</h4>
+        <p>PTMs will be held on March 28th from 8am–1pm. Please book your slot with your child's form teacher.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p>123 Unit E , Seke, Chitungwiza &nbsp;|&nbsp; +263 557 5640 &nbsp;|&nbsp; Focuscollege@gmai.com</p>
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="logo.png" alt="Focus College">
+        <div>
+          <div style="color:#e5e7eb;font-weight:600;font-size:0.95rem;">Focus College</div>
+          <div class="footer-motto">Every student matters!</div>
+        </div>
+      </div>
+      <div class="footer-contact">
+        <div>123 Unit E, Seke, Chitungwiza</div>
+        <div>+263 557 5640</div>
+        <div>focuscollege@gmail.com</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Focus College. All rights reserved.
+    </div>
   </footer>
 
 </body>
